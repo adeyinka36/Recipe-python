@@ -13,7 +13,7 @@ class CommandTests(SimpleTestCase):
         """Test waiting for db when db is available"""
         patched_check.return_value = True
         call_command('wait_for_db')
-        patched_check.assert_called_once_with(database=['default'])
+        patched_check.assert_called_once_with(databases=['default'])
 
     def test_wait_for_db_delay(self, patched_check):
         """Test waiting for db"""
@@ -21,7 +21,7 @@ class CommandTests(SimpleTestCase):
                                     [OperationalError] * 3 + [True]
         call_command('wait_for_db')
         self.assertEqual(patched_check.call_count, 9)
-        patched_check.assert_called_with(database=['default'])
+        patched_check.assert_called_with(databases=['default'])
 
     @patch('time.sleep')
     def test_wait_for_db(self, patched_sleep, patched_check):
